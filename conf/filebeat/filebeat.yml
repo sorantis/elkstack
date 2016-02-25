@@ -71,8 +71,8 @@ filebeat:
       document_type: rabbitmq
     -
       paths:
-        - "/var/log/httpd/*.log"
-      document_type: http
+        - "/var/log/libvirt/*.log"
+      document_type: libvirt
 
 output:
   logstash:
