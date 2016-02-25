@@ -4,7 +4,7 @@ echo "deb http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -
 echo 'deb http://packages.elastic.co/logstash/2.2/debian stable main' | sudo tee /etc/apt/sources.list.d/logstash-2.2.x.list
 
 echo "#############################"
-echo "#### Installing Packages ####
+echo "#### Installing Packages ####"
 echo "#############################"
 sudo apt-get update
 sudo apt-get -y install unzip
