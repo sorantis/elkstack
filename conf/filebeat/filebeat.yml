@@ -1,0 +1,85 @@
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - elk:5044
+    tls:
+      certificate_authorities:
+        - /etc/pki/tls/certs/logstash-beats.crt
+    timeout: 15
+
+filebeat:
+  prospectors:
+    -
+      paths:
+        - "/var/log/syslog"
+        - "/var/log/auth.log"
+      document_type: syslog
+    -
+      paths:
+        - "/var/log/nova/*.log"
+      document_type: nova
+    -
+      paths:
+        - "/var/log/neutron/*.log"
+      document_type: neutron
+    -
+      paths:
+        - "/var/log/cinder/*.log"
+      document_type: cinder
+    -
+      paths:
+        - "/var/log/glance/*.log"
+      document_type: glance
+    -
+      paths:
+        - "/var/log/heat/*.log"
+      document_type: heat
+    -
+      paths:
+        - "/var/log/httpd/*.log"
+      document_type: http
+    -
+      paths:
+        - "/var/log/horizon/*.log"
+      document_type: horizon
+    -
+      paths:
+        - "/var/log/keystone/*.log"
+      document_type: keystone
+    -
+      paths:
+        - "/var/log/mariadb/*.log"
+      document_type: mariadb
+    -
+      paths:
+        - "/var/log/messages"
+      document_type: syslog
+    -
+      paths:
+        - "/var/log/mongodb/*.log"
+      document_type: mongodb
+    -
+      paths:
+        - "/var/log/openvswitch/*.log"
+      document_type: openvswitch
+    -
+      paths:
+        - "/var/log/pacemaker.log"
+      document_type: pacemaker
+    -
+      paths:
+        - "/var/log/ceilometer/*.log"
+      document_type: ceilometer
+    -
+      paths:
+        - "/var/log/cron"
+      document_type: cron
+    -
+      paths:
+        - "/var/log/rabbitmq/*.log-2*"
+      document_type: rabbitmq
+    -
+      paths:
+        - "/var/log/httpd/*.log"
+      document_type: http
