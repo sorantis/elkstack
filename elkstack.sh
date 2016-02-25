@@ -11,8 +11,8 @@ sudo apt-get --force-yes -y install logstash
 sudo apt-get --force-yes -y install kibana
 
 # Instal beats plugin for logstash
-/opt/logstash/bin/plugin install logstash-input-beats
-/opt/logstash/bin/plugin update logstash-input-beats
+sudo /opt/logstash/bin/plugin install logstash-input-beats
+sudo /opt/logstash/bin/plugin update logstash-input-beats
 
 # Copy logstash configuration files
 sudo cp conf/logstash/* /etc/logstash/conf.d/
