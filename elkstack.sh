@@ -15,10 +15,11 @@ sudo apt-get --force-yes -y install kibana
 /opt/logstash/bin/plugin update logstash-input-beats
 
 # Copy logstash configuration files
-cp conf/logstash/* /etc/logstash/conf.d/
+sudo cp conf/logstash/* /etc/logstash/conf.d/
 
 sudo service elasticsearch start
 sudo service logstash start
+sudo service kibana start
 
 # Install beats dashboards
 curl -L -O https://download.elastic.co/beats/dashboards/beats-dashboards-1.1.1.zip
