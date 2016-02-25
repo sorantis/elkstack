@@ -1,13 +1,3 @@
-output:
-  logstash:
-    enabled: true
-    hosts:
-      - elk:5044
-    tls:
-      certificate_authorities:
-        - /etc/pki/tls/certs/logstash-beats.crt
-    timeout: 15
-
 filebeat:
   prospectors:
     -
@@ -83,3 +73,11 @@ filebeat:
       paths:
         - "/var/log/httpd/*.log"
       document_type: http
+
+output:
+  logstash:
+    enabled: true
+    hosts:
+      - localhost:5044
+    index: filebeat
+    bulk_max_size: 50

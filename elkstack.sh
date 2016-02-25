@@ -6,9 +6,9 @@ echo 'deb http://packages.elastic.co/logstash/2.2/debian stable main' | sudo tee
 sudo apt-get update
 sudo apt-get -y install unzip
 sudo apt-get -y install openjdk-7-jre
-sudo apt-get -y install elasticsearch
-sudo apt-get -y install logstash
-sudo apt-get -y install kibana
+sudo apt-get --force-yes -y install elasticsearch
+sudo apt-get --force-yes -y install logstash
+sudo apt-get --force-yes -y install kibana
 
 # Instal beats plugin for logstash
 /opt/logstash/bin/plugin install logstash-input-beats
@@ -22,7 +22,7 @@ sudo service logstash start
 
 # Install beats dashboards
 curl -L -O https://download.elastic.co/beats/dashboards/beats-dashboards-1.1.1.zip
-unzip beats-dashboards-*.zip
+unzip -o beats-dashboards-*.zip
 cd beats-dashboards-*
 ./load.sh
 cd ..
