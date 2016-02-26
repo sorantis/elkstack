@@ -6,13 +6,19 @@ echo 'deb http://packages.elastic.co/logstash/2.2/debian stable main' | sudo tee
 sudo apt-get update
 sudo apt-get -y install unzip
 sudo apt-get -y install openjdk-7-jre
+sudo apt-get install -y python-pip
 
 sudo apt-get --force-yes -y install elasticsearch
+
+# Install management tools
+sudo /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
+pip install elasticsearch-curator
+
 sudo service elasticsearch restart
 sudo update-rc.d elasticsearch defaults 95 10
 
-
 sudo apt-get --force-yes -y install logstash
+
 # Install beats plugin for logstash
 sudo /opt/logstash/bin/plugin install logstash-input-beats
 sudo /opt/logstash/bin/plugin update logstash-input-beats
