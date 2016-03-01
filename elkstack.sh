@@ -12,7 +12,7 @@ sudo apt-get --force-yes -y install elasticsearch
 
 # Install management tools
 sudo /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head
-pip install elasticsearch-curator
+sudo pip install elasticsearch-curator
 
 sudo service elasticsearch restart
 sudo update-rc.d elasticsearch defaults 95 10
