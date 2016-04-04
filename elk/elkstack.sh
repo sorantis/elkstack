@@ -24,7 +24,7 @@ sudo /opt/logstash/bin/plugin install logstash-input-beats
 sudo /opt/logstash/bin/plugin update logstash-input-beats
 
 # Copy logstash configuration files
-sudo cp conf/logstash/* /etc/logstash/conf.d/
+sudo cp logstash/* /etc/logstash/conf.d/
 
 sudo service logstash restart
 sudo update-rc.d logstash defaults 96 9
