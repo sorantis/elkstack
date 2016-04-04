@@ -14,12 +14,12 @@ COPY . /tmp/elkstack
 
 RUN cd /tmp/elkstack
 
-ADD ./elkstack.sh /tmp/elkstack/elkstack.sh
-
-CMD ["/bin/bash", "/elkstack.sh"]
+RUN cd /tmp/elkstack && /bin/bash /tmp/elkstack/elkstack.sh
 
 EXPOSE 80
 EXPOSE 22
 EXPOSE 9200
 EXPOSE 5044
+
+ENV HOME /home/elkstack
 WORKDIR /home/elkstack

@@ -35,7 +35,7 @@ sudo update-rc.d kibana defaults 96 9
 
 while ! nc -q 1 localhost 9200 </dev/null; do sleep 3; done
 
-curl --retry 20 -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@conf/filebeat.template.json
+curl --retry 20 -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@filebeat.template.json
 
 # Install beats dashboards
 curl -L -O https://download.elastic.co/beats/dashboards/beats-dashboards-1.1.1.zip
