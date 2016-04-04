@@ -4,9 +4,10 @@ echo "deb http://packages.elastic.co/kibana/4.4/debian stable main" | sudo tee -
 echo 'deb http://packages.elastic.co/logstash/2.2/debian stable main' | sudo tee /etc/apt/sources.list.d/logstash-2.2.x.list
 
 sudo apt-get update
+sudo apt-get -y install curl
 sudo apt-get -y install unzip
 sudo apt-get -y install openjdk-7-jre
-sudo apt-get install -y python-pip
+sudo apt-get -y install python-pip
 
 sudo apt-get --force-yes -y install elasticsearch
 
