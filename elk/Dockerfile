@@ -12,7 +12,9 @@ MAINTAINER Dimitri Mazmanov <dimitri.mazmanov@ericsson.com>
 
 COPY . /tmp/elkstack
 
-RUN cd /tmp/elkstack
+RUN echo 'sudo service logstash start' >> /tmp/elkstack/start.sh
+RUN echo 'sudo service elasticsearch start' >> /tmp/elkstack/start.sh
+RUN echo 'sudo service kibana start' >> /tmp/elkstack/start.sh
 
 RUN cd /tmp/elkstack && /bin/bash /tmp/elkstack/elkstack.sh
 
@@ -23,3 +25,5 @@ EXPOSE 5044
 
 ENV HOME /home/elkstack
 WORKDIR /home/elkstack
+
+CMD bash -C '/tmp/elkstack/start.sh';'bash'
