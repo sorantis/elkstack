@@ -1,0 +1,45 @@
+OPENSTACK_PID ( %{POSINT:pid:int})?
+
+OPENSTACK_PROG (?:[ a-zA-Z0-9_\-]+\.)+[ A-Za-z0-9_\-$]+
+
+OPENSTACK_PROG_SINGLE [A-Za-z0-9_\-$]+
+
+OPENSTACK_SOURCE %{OPENSTACK_PROG}|%{OPENSTACK_PROG_SINGLE}
+
+OPENSTACK_REQ_LIST (\[(?:(req-%{UUID}|%{UUID}|%{BASE16NUM}|None|-|%{SPACE}))+\])?
+
+OPENSTACK_LOGLEVEL ([A-a]lert|ALERT|[A-a]udit|AUDIT|[T|t]race|TRACE|[D|d]ebug|DEBUG|[N|n]otice|NOTICE|[I|i]nfo|INFO|[W|w]arn?(?:ing)?|WARN?(?:ING)?|[E|e]rr?(?:or)?|ERR?(?:OR)?|[C|c]rit?(?:ical)?|CRIT?(?:ICAL)?|[F|f]atal|FATAL|[S|s]evere|SEVERE|EMERG(?:ENCY)?|[Ee]merg(?:ency)?)
+
+OPENSTACK_NORMAL %{TIMESTAMP_ISO8601:timestamp}%{OPENSTACK_PID} %{OPENSTACK_LOGLEVEL:loglevel} %{OPENSTACK_SOURCE:program} %{OPENSTACK_REQ_LIST:request_id_list} %{GREEDYDATA:openstack_message}
+
+RAW_TRACE (?:^[^0-9].*$|^$)
+
+REQ_LIST (\[(?:(req-%{UUID:request_id_list}|%{UUID:request_id_list}|%{BASE16NUM}|None|-|%{SPACE}))+\])?
+
+ID (\[(?:(instance: %{UUID:openstack_instance_id}))+\])?
+
+
+# Nova resource usage
+RESOURCE_DISK_RAM (%{WORD} %{WORD} %{NOTSPACE} %{INT:Free_disk_ram_count})
+RESOURCE_CPU (%{WORD} %{NOTSPACE} %{INT:Free_vcpus_count})
+COMPUTE_SERVICE (%{WORD} %{WORD} %{WORD} %{WORD} %{NOTSPACE})
+BASE_FILE (%{NOTSPACE} %{NOTSPACE} %{NOTSPACE})
+CLAIM_REQ (?:Attempting claim: memory %{NUMBER:mem:float} MB, disk %{NUMBER:disk:float} GB, VCPUs %{NUMBER:cpu:float})
+NOVA_INSTANCE_REQUEST %{NOVA_INSTANCE} %{CLAIM_REQ}
+NOVA_INSTANCE (?:\[instance: %{UUID:instance_id}\])
+
+# Nova uses a slightly different format than Neutron, Cinder, and Glance for API call logging
+#
+API_CALL (%{URIHOST:client_ip}((?:[,]*)%{URIHOST:client_ip})*) - - \[%{GREEDYDATA}\]?"%{HTTP_METHOD:method} %{URIPATHPARAM:uri} HTTP/%{NOTSPACE:protocol}[\\]?" %{NUMBER:response_status:int} %{NUMBER:response_length:int} %{NUMBER:response_time:float}
+
+NOVA_API_CALL (%{URIHOST:client_ip}((?:[,]*)%{URIHOST:client_ip})*) [\\]?"%{HTTP_METHOD:method} %{URIPATHPARAM:uri} HTTP/%{NOTSPACE:protocol}[\\]?" status: %{NUMBER:response_status:int} len: %{NUMBER:response_length:int} time: %{NUMBER:response_time:float}
+
+OPENSTACK_API_CALL %{API_CALL}|%{NOVA_API_CALL}
+
+# Glance
+GLANCE_IMAGE_MESSAGE (%{WORD} %{WORD} %{WORD} %{WORD}|%{WORD} %{WORD} %{WORD})
+
+# Neutron
+NEUTRON_ACCEPT_MESSAGE (%{NOTSPACE} %{WORD} %{NOTSPACE} %{INT})
+NEUTRON_PORT_UPDATE (%{WORD} %{UUID:neutron_port_id} %{WORD}%{NOTSPACE})
+
